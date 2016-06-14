@@ -4,6 +4,7 @@
 #define SWAP(t,a,b) ( (t) = (a), (a) = (b), (b) = (t) )
 using namespace std;
 
+
 int main()
 {
 	double dtemp, d1 = 11.1e222, d2 = 22.2e109;
@@ -33,5 +34,35 @@ int main()
 	ii = sizeof(long double);
 	cout << "long double: " << ii << endl;
 
-	getchar(); getchar();
+	{//Empleando punteros simples:
+		//Carga de datos
+		long a[10],b[10],*ptr1 ,*ptr2;
+		long i;
+		for (i=0;i<10;i++)
+		{
+			a[i]=10+i;
+			b[i]=20+i;
+		}
+		//asignación de punteros:
+		ptr1 = &a[0];
+		ptr2=  &b[0];
+		//saco datos
+		for (i=0;i<10;i++)
+		{
+			cout << ptr1[i] << " " << ptr2[i] << endl;
+		}
+		cout <<"=== SWAP ==="<<endl;//SWAP!!
+		ptr2 = &a[0];
+		ptr1=  &b[0];
+		//saco datos después del swap:
+		for (i=0;i<10;i++)
+		{
+			cout << ptr1[i] << " " << ptr2[i] << endl;
+		}
+	}
+
+
+
+
+	cout << "========= FIN ========="<<endl;getchar(); getchar();
 }
