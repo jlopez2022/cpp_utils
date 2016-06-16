@@ -1,3 +1,4 @@
+//operador ?
 #include <stdio.h>
 
 void main()

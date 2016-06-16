@@ -1,7 +1,7 @@
 #pragma warning(disable:4786) //quito todos los warnings 4786 de compilación
 #include <string>
 #include <iostream>
-#include <map>
+#include <map>        //Uso de libreria <map>
 using namespace std;
 
 class bound

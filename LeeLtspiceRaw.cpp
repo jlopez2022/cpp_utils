@@ -27,7 +27,7 @@ void leelinea(FILE *str,char *lin)
 int main()
 {
 	printf("En LTspice en Tools->control panel-compression marcar Ascii");
-	printf("\nUsar el comando .SAVE V(1) I(L1) para indicar que parametros salen en .raw");
+	printf("\nUsar el comando similar a: .SAVE V(1) I(L1) para indicar que parametros salen en .raw");
 	getchar();
 
     struct _finddata_t c_file;    

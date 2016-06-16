@@ -1,4 +1,4 @@
-//extrae datos NMEA y los mete en NMEA.txt
+//lee de un fichero linea por linea, sea cual sea el caracter de fin de linea
 #include <stdio.h>
 #include <string.h>
 

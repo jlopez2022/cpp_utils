@@ -1,3 +1,4 @@
+//Lee ficheros csv generados por osciloscopios lecroy sacando todo en un unico fichero de salida con los 4 canales
 #include <stdio.h>
 #define FILTRO 10
 #define VMED 2.5
