@@ -33,7 +33,7 @@ int main()
 	int i;
 	double *CENW_MEM=new double[WORMS*DIM];
 	double (*CENW)[DIM];
-	CENW=(double (*)[3]) &CENW_MEM[0];
+	CENW=(double (*)[DIM]) &CENW_MEM[0];
 	i=1;i=10;
 	halla_centros_V000(CENW);
 	halla_centros_V000(&CENW[0]);

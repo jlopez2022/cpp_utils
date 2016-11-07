@@ -33,19 +33,19 @@ void desordena(long vector[], long vector_size)
 int main()
 {
 	long i;
-	const long vector_lon=23000;
-	long vector[vector_lon];
-	for (i=0;i<vector_lon;i++) vector[i]= i;
-	desordena(vector,vector_lon);
+	const long vector_size=23000;
+	long vector[vector_size];
+	for (i=0;i<vector_size;i++) vector[i]= i;
+	desordena(vector,vector_size);
 
-	long casos[vector_lon];
-	memset(casos,0,vector_lon*sizeof(long));
-	for (i=0;i<vector_lon;i++)
+	long casos[vector_size];
+	memset(casos,0,vector_size*sizeof(long));
+	for (i=0;i<vector_size;i++)
 	{
 		casos[vector[i]]++;
 	}
 	long errores=0;
-	for (i=0;i<vector_lon;i++)
+	for (i=0;i<vector_size;i++)
 	{
 		if (casos[i]!=1)
 		{

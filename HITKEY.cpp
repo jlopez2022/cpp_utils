@@ -13,16 +13,17 @@ double y(double x)
    }
 
 void main()
-   {
+{
    double delta;
    double x=1.13;
    char c;
 
-while( !_kbhit() )
-      {
-      delta=x*1e-7;
-      x+= delta*y(x)/( y(x)-y(x+delta) );
-      printf("\nx=%.15lg",x);
-      }
+	do
+	  {
+		  int c = getchar();
+		  delta=x*1e-7;
+		  x+= delta*y(x)/( y(x)-y(x+delta) );
+		  printf("\nx=%.15lg",x);
+	  }while (c!='q');
    c=scanf("%c%c",&c,&c);
-   }
+}

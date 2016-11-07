@@ -1,8 +1,8 @@
 /* Analizador de calibraciones.cpp: 
 
 */
-#include "stdafx.h"
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -25,9 +25,29 @@ long main( void )
 	cin>>linea;
 	cout<<"Texto="<<linea<<endl;
 
+	long i1;
+	ofstream file1("texto.txt");
+	if (!file1.is_open())
+		cerr<<"ERROR at texto.txt"<<endl;
+
+	file1 << "1 2 ";
+	i1=3;file1<<i1<<" ";
+	i1=4;file1<<i1<<" ";
+	i1=5;file1<<i1<<" ";
+	file1.close();
+
+	ifstream file2("texto.txt");
+	if (!file2.is_open())
+		cerr<<"ERROR at texto.txt"<<endl;
+	while (file2.good())//Hapens one time more. Caution
+	{
+		file2 >> i1;cout <<"i1="<<i1<<endl;
+	}
+
+	file2.close();
 
 
-	printf("\nFIN");
+	cout <<"\n\n===FIN===" << endl;getchar();getchar();
 	getchar();
 	getchar();
 	return 1;

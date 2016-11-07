@@ -1,15 +1,21 @@
 #include <windows.h>
+#include <unistd.h> usleep
 
-DWORD ms = 5000;
+unsigned int microseconds;
+
+DWORD ms = 1000;
 
 void main()
 {
-	printf("\nEspera 5000ms");
+
+	printf("\nEspera %ims",(int) ms);
 	Sleep(ms);
-	printf("\nEspera 5000ms");
+	printf("\nEspera %ims", (int)ms);
 	Sleep(ms);
-	printf("\nEspera 5000ms");
+	printf("\nEspera %ims", (int)ms);
 	Sleep(ms);
+
+	usleep(20000);//espera 20ms 
 	printf("\nFIN");getchar();getchar();
 
 }

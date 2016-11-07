@@ -1,16 +1,25 @@
 #include <stdio.h>
+#include <iostream>
 #include <string.h> //memcpy
 #include <math.h>   //floor(),sin, cos,tan
 #include <time.h>   //no hace falta, solo para medir performance
 #pragma warning(disable:4996) //o cualquier otro 
+using namespace std;
 
 //mete a x entre 0 y xmax:
-#define INLIMIT(x,xmax) ( x<0 ? 0 : (x<xmax ? x : xmax-1))    //Va 10x en modo debug. En release es 1x (1.13Gops/s)
-long INLIMIT_F(long x,long xmax);//funcion equivalente a INLIMIT
+#define INLIMIT(x,xmax) ( (x)<0 ? 0 : ((x)<(xmax) ? (x) : ((xmax)-1)))    //Va 10x en modo debug. En release es 1x (1.13Gops/s)
+long INLIMIT_F(long x, long xmax);//funcion equivalente a INLIMIT
 void prue_inlimit();
 
+//uses: x=INLIMIT2(x,10,100);
+#define INLIMIT2(x,xmin,xmax) ( (x)<(xmin) ? (xmin) : ((x)<(xmax) ? (x) : ((xmax)-1)))     //OJO: ASIGNO max-1 no max!!!
+#define INLIMIT3(x,xmin,xmax) ( (x)<(xmin) ? (xmin) : ((x)<(xmax) ? (x) : (xmax)    ))     //OJO: ASIGNO max no max-1!!!
+void prue_inlimit2();
+
+
 #define ROUND(x) (floor(0.5+x))
-#define ABS(a) ((a) < 0 ? (-a) : (a))
+#define ABS(a) ((a) < 0 ? (-(a)) : (a))
+void prueba_abs();
 #define MIN(a,b) ((a) < (b) ? (a) : (b))
 #define MAX(a,b) ((a) > (b) ? (a) : (b))
 #define SWAP(t,a,b) ( (t) = (a), (a) = (b), (b) = (t) ) 
@@ -32,9 +41,13 @@ void prue_UB(void);
 
 
 
+
+
 int main()
 {
+	prueba_abs();//prueba de que no funciona ABS con operacione
 	prue_inlimit();//prueba inlimit 
+	prue_inlimit2();
 	prue_UB();
 
 
@@ -222,3 +235,116 @@ void prue_UB(void)
 		printf("\n======== fin prueba UB  ============\n");
 		printf(  "====================================\n");
 	}
+
+//#define INLIMIT2(x,xmin,xmax) ( x<xmin ? xmin : (x<xmax ? x : xmax-1))    
+void prue_inlimit2()
+{
+	printf("\n======== ini prueba INLIMIT2  ============\n");
+	printf("====================================\n");
+
+	{
+		double x1,y1;
+		x1 = INLIMIT2(10.0 - 20.0, -3, 10 + 2); y1 = -3; cout << "x1=" << x1 << " <> " << y1 << "  "; if (y1 == x1) cout << "OK\n"; else  cout << "NOK!!!!!!!!!!!\n";
+		x1 = INLIMIT2(10.0 - 20.0, -12 + 8, 10 + 2); y1 = -4; cout << "x1=" << x1 << " <> " << y1 << "  "; if (y1 == x1) cout << "OK\n"; else  cout << "NOK!!!!!!!!!!!\n";
+		x1 = INLIMIT2(10.0 + 20.2, -12 + 8, 10 + 2); y1 = 11; cout << "x1=" << x1 << " <> " << y1 << "  "; if (y1 == x1) cout << "OK\n"; else  cout << "NOK!!!!!!!!!!!\n";
+		x1 = INLIMIT2(20.0 - 19.2, -12 + 8, 10 + 2); y1 = 20.0 - 19.2; cout << "x1=" << x1 << " <> " << y1 << "  "; if (y1 == x1) cout << "OK\n"; else cout << "NOK!!!!!!!!!!!\n";
+
+	}
+
+	long errores = 0;
+	{
+		double x1, x2,xmin1, xmax1;
+		xmin1 = -10.51; xmax1 = 12.21;
+		for (long i = 0; i < 300; i++)
+		{
+			x1 = -12.0 + 0.1*i;
+			x2 = INLIMIT2(x1, xmin1, xmax1);
+			if (x2 < xmin1)
+			{
+				cout << "error:" << x2 << " es menor que " << xmin1 << endl;
+				errores++;
+			}
+			if (x2 > xmax1)
+			{
+				cout << "error:" << x2 << " es mayor que " << xmax1 << endl;
+				errores++;
+			}
+		}
+	}
+	{
+		long x1, x2, xmin1, xmax1;
+		xmin1 = -105; xmax1 = 122;
+		for (long i = 0; i < 300; i++)
+		{
+			x1 = -120 + i;
+			x2 = INLIMIT2(x1, xmin1, xmax1);
+			if (x2 < xmin1)
+			{
+				cout << "error:" << x2 << " es menor que " << xmin1 << endl;
+				errores++;
+			}
+			if (x2 > xmax1)
+			{
+				cout << "error:" << x2 << " es mayor que " << xmax1 << endl;
+				errores++;
+			}
+		}
+	}
+	cout << "Errores de INLIMIT2=" << errores << endl;
+	printf("\n======== fin prueba INLIMIT2  ============\n");
+	printf("====================================\n");
+}
+
+
+void prueba_abs()
+{
+	{
+		cout << "=========== double ==========" << endl;
+		double a = -7.0;
+		double b = -3.0;
+		double x;
+
+		x = ABS(a - b); cout << "ABS(" << a << "- " << b << ")=" << x << endl;
+		x = ABS(b - a); cout << "ABS(" << b << "- " << a << ")=" << x << endl;
+
+		a = 7.0; b = 3.0;
+		x = ABS(a - b); cout << "ABS(" << a << "- " << b << ")=" << x << endl;
+		x = ABS(b - a); cout << "ABS(" << b << "- " << a << ")=" << x << endl;
+	}
+	{
+		cout << "=========== double ==========" << endl;
+		double *a = new double[7];
+		double *b = new double[7];
+		double x;
+
+		a[1] = -7.0; b[1] = -3.0;
+		x = ABS(a[1] - b[1]); cout << "ABS(" << a[1] << "- " << b[1] << ")=" << x << endl;
+		x = ABS(b[1] - a[1]); cout << "ABS(" << b[1] << "- " << a[1] << ")=" << x << endl;
+
+		a[1] = 7.0; b[1] = 3.0;
+		x = ABS(a[1] - b[1]); cout << "ABS(" << a[1] << "- " << b[1] << ")=" << x << endl;
+		x = ABS(b[1] - a[1]); cout << "ABS(" << b[1] << "- " << a[1] << ")=" << x << endl;
+	}
+
+	{
+		cout << "=========== uchar-1 ==========" << endl;
+		uchar *a = new uchar[7];
+		uchar *b = new uchar[7];
+		int x;
+
+		a[1] = 7; b[1] = 3;
+		x = ABS(a[1] - b[1]); cout << "ABS(" << a[1] << "- " << b[1] << ")=" << x << endl;
+		x = ABS(b[1] - a[1]); cout << "ABS(" << b[1] << "- " << a[1] << ")=" << x << endl;
+	}
+
+	{
+		cout << "=========== uchar-2 ==========" << endl;
+		uchar a;
+		uchar b;
+		int x;
+
+		a = 7; b = 3;
+		x = ABS(a - b); cout << "ABS(" << a << "- " << b << ")=" << x << endl;
+		x = ABS(b - a); cout << "ABS(" << b << "- " << a << ")=" << x << endl;
+	}
+}
