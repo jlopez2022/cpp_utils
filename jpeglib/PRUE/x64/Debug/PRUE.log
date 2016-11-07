@@ -1,0 +1,18 @@
+﻿Build started 19/10/2016 17:23:43.
+     1>Project "C:\Ajavier\C++2013\jpeglib\PRUE\PRUE.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /IC:\libjpeg /Zi /nologo /W3 /WX- /sdl /Od /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt jpeg_lib_ejemplo.cpp
+         jpeg_lib_ejemplo.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Ajavier\C++2013\jpeglib\x64\Debug\jpeglib.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\libjpeg\x64\Release jpeg.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Ajavier\C++2013\jpeglib\x64\Debug\jpeglib.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Ajavier\C++2013\jpeglib\x64\Debug\jpeglib.lib" /MACHINE:X64 x64\Debug\jpeg_lib_ejemplo.obj
+         jpeg.lib(jerror.obj) : MSIL .netmodule or module compiled with /GL found; restarting link with /LTCG; add /LTCG to the link command line to improve linker performance
+     1>LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification
+     1>LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+         Generating code
+         Finished generating code
+         PRUE.vcxproj -> C:\Ajavier\C++2013\jpeglib\x64\Debug\jpeglib.exe
+     1>Done Building Project "C:\Ajavier\C++2013\jpeglib\PRUE\PRUE.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:03.32
