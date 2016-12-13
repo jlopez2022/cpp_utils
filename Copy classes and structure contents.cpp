@@ -1,6 +1,4 @@
-//strcpy and strcat microsof proof
 #include <iostream>
-
 
 
 struct s_struct
