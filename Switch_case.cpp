@@ -1,4 +1,6 @@
 #include <stdio.h>
+//Do not pass through all cases!!: run in debug mode 
+//Not needed braquets {} 
 
 #pragma warning(disable:4996) //o cualquier otro 
 

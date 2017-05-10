@@ -1,6 +1,8 @@
 #include <time.h>
 #include <stdio.h>
 
+//ver sleep
+
 void espera(long segundos)
 {
   long tiempo_final;

@@ -11,9 +11,12 @@ using namespace std;
 long INLIMIT_F(long x, long xmax);//funcion equivalente a INLIMIT
 void prue_inlimit();
 
+typedef unsigned char byte;
+//converts anything to byte:
+#define TOBYTE(x)  ( (x)<0 ? 0 : ((x)<=255 ? ((byte)(x)) : (255)    ))
 //uses: x=INLIMIT2(x,10,100);
 #define INLIMIT2(x,xmin,xmax) ( (x)<(xmin) ? (xmin) : ((x)<(xmax) ? (x) : ((xmax)-1)))     //OJO: ASIGNO max-1 no max!!!
-#define INLIMIT3(x,xmin,xmax) ( (x)<(xmin) ? (xmin) : ((x)<(xmax) ? (x) : (xmax)    ))     //OJO: ASIGNO max no max-1!!!
+#define INLIMIT3(x,xmin,xmax) ( (x)<(xmin) ? (xmin) : ((x)<=(xmax) ? (x) : (xmax)    ))     //OJO: ASIGNO max no max-1!!!
 void prue_inlimit2();
 
 

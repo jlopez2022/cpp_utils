@@ -7,7 +7,7 @@ void strcpy1(char *ptr1, char *ptr2, long max = 1023)
 		if (*ptr2)
 			*ptr1++ = *ptr2++;
 		else break;
-		*ptr1 = '\0';
+	*ptr1 = '\0';
 }
 
 void strcat1(char *ptr1, char *ptr2, long max = 1023)
