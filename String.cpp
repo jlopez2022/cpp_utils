@@ -1,12 +1,22 @@
-#include <stdio.h>
+#include <iostream>
 #include <string>
 
 using namespace std;
 
+void imprime(const char *c)
+{
+	cout << "line:" << c << endl;
+}
+
+void imprime2(char *c)
+{
+	cout << "line:" << c << endl;
+}
+
 void main()
 {
-	string a="alcai",b="alcah",c;
-	long ii;
+	string a="Rincon",b=" provincia de Malaga",c;
+	size_t ii;
 
 	ii=a.size();
 	c=a+b;
@@ -14,8 +24,10 @@ void main()
 
 	c=a;
 
-	c=a+" gggg "+b;
-
+	c=a+" de la Victoria"+b;
+	imprime(c.c_str());
 	c=b;
-
+	imprime(c.c_str());
+	imprime2((char *)c.c_str());
+	cout << "=== END ===" << endl; getchar();
 }

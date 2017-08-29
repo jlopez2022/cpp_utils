@@ -3,7 +3,7 @@
 #include <string.h> //memcpy
 #include <math.h>   //floor(),sin, cos,tan
 #include <time.h>   //no hace falta, solo para medir performance
-#pragma warning(disable:4996) //o cualquier otro 
+#pragma warning(disable:4996) //disable deprecateds
 using namespace std;
 
 //mete a x entre 0 y xmax:
@@ -48,6 +48,10 @@ void prue_UB(void);
 
 int main()
 {
+#ifndef __linux__   //Introduce this code at the beginning of main() to increase a lot the speed of cout in windows: 
+	char buf[4000]; setvbuf(stdout, buf, _IOFBF, sizeof buf);
+#endif
+
 	prueba_abs();//prueba de que no funciona ABS con operacione
 	prue_inlimit();//prueba inlimit 
 	prue_inlimit2();
