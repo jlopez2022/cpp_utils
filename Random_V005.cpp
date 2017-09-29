@@ -5,7 +5,7 @@ using namespace std;
 
 
 
-#define RANS_SIZE 131072 //<131072
+#define RANS_SIZE 131072 //must be <=131072
 
 
 class c_rans_float

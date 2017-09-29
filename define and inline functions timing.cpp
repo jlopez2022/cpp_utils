@@ -1,4 +1,5 @@
 //gcc  -std=c++11 -lstdc++ -o prue define_timing.cpp
+//see also #define.cpp file
 
 /*
 LINUX AMD 1Ghz:

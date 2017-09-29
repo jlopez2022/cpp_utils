@@ -1,4 +1,4 @@
-//looks for decomposition in prime numbers
+//looks for decomposition in prime numbers 
 #include <iostream>
 #include <vector>
 

@@ -1,14 +1,31 @@
+/* It is stated:
+It is kicker using if than % operator
+It is kicker using standard functions than #define ones
+*/
 #include <stdio.h>
 #include <iostream>
 #include <string.h> //memcpy
 #include <math.h>   //floor(),sin, cos,tan
-#include <time.h>   //no hace falta, solo para medir performance
+#include <time.h>   //time_t, clock()
 #pragma warning(disable:4996) //disable deprecateds
 using namespace std;
+typedef unsigned char uchar;
 
-//mete a x entre 0 y xmax:
-#define INLIMIT(x,xmax) ( (x)<0 ? 0 : ((x)<(xmax) ? (x) : ((xmax)-1)))    //Va 10x en modo debug. En release es 1x (1.13Gops/s)
-long INLIMIT_F(long x, long xmax);//funcion equivalente a INLIMIT
+//Timing functions and data:
+time_t start,stop;
+void timer(char *title,int data_size=1) { 	stop=clock();	cout<<title<< " time ="<<(double) (stop-start)/(double) CLOCKS_PER_SEC<< " = " << 1e-6*data_size/( (double)(stop-start)/(double)CLOCKS_PER_SEC ) <<  " Mops/seg"   <<endl; 	start=clock(); }
+
+
+//If x<0 then x=0. If x>xmax then x=xmax-1:
+#define INLIMIT_F0(x,xmax) ( (x)<0 ? 0 : ((x)<(xmax) ? (x) : ((xmax)-1)))    //Va 10x en modo debug. En release es 1x (1.13Gops/s)
+int INLIMIT_F1(int x, int xmax) { 	if (x<0) return 0; 	else if (x<xmax) return x; 	else return xmax-1; }
+//If x<0 then x=x+xmax. If x>xmax then x=x-xmax:
+//The best are F4 and F5. F2 and F3 are very sloooow:
+#define INLIMIT_F2(x,xmax) ( ((x)+(xmax)) % (xmax))    
+int INLIMIT_F3(int x, int xmax) { 	return (x+xmax) % xmax; }
+int INLIMIT_F4(int x, int xmax) { 	if (x<0) return x+xmax; 	else if (x<xmax) return x; 	else return x-xmax; } //Mejor que F2 & F3
+#define INLIMIT_F5(x,xmax) ( (x)<0 ? ((x)+(xmax)) : ((x)<(xmax) ? (x) : ((x)-(xmax))))
+//tests all INLIMIT_Fx:
 void prue_inlimit();
 
 typedef unsigned char byte;
@@ -53,7 +70,7 @@ int main()
 #endif
 
 	prueba_abs();//prueba de que no funciona ABS con operacione
-	prue_inlimit();//prueba inlimit 
+	prue_inlimit();//prueba INLIMIT_Fx 
 	prue_inlimit2();
 	prue_UB();
 
@@ -62,7 +79,7 @@ int main()
 		printf("======== ini prueba ABS ============\n");
 		float f[11]={1.0f,-1.5f,0.0f,1.2f,1.9f,-1.9f,-1.1f,-9.99e30f,-1.199e-07f,1.222e-7f,9.87e30f};
 		float g[11],h[11];
-		long i;
+		int i;
 		memcpy(g,f,11*sizeof(float));
 		memcpy(h,f,11*sizeof(float));
 		for (i=0;i<11;i++)
@@ -111,7 +128,7 @@ int main()
 	{
 		printf("=======  ini prueba UDIF DIF2 =====\n");
 		printf("\n\n UDIF y DIF2");
-		long a=10,b=7;
+		int a=10,b=7;
 		double x=10.2,y=12.4;
 
 		a=10;b=100;printf("\na=%li b=%li UDIF=%li",a,b,UDIF(a,b)); 
@@ -165,49 +182,61 @@ int main()
 }
 
 
-long INLIMIT_F(long x,long xmax)//funcion equivalente a INLIMIT
-{
-	if (x<0) return 0;
-	else if (x<xmax) return x;
-	else return xmax-1;
-}
+
 
 void prue_inlimit() 
 {
-	printf("======== ini prueba INLIMIT ========\n");
-	long x,y,xmax=1020;
-	x=10;  y=INLIMIT(x,xmax);printf("x=%li y=%li\n",x,y);
-	x=-3;  y=INLIMIT(x,xmax);printf("x=%li y=%li\n",x,y);
-	x=1024;y=INLIMIT(x,xmax);printf("x=%li y=%li\n",x,y);
+	char buf[4000]; setvbuf(stdout, buf, _IOFBF, sizeof buf); //speed of cout $ printf increased
+
+	printf("======== ini prueba INLIMIT_Fx ========\n");
+	int x,y,xmax=1020;
+	x=10;  y=INLIMIT_F0(x,xmax);printf("x=%li y=%li\n",x,y);
+	x=-3;  y=INLIMIT_F0(x,xmax);printf("x=%li y=%li\n",x,y);
+	x=1024;y=INLIMIT_F0(x,xmax);printf("x=%li y=%li\n",x,y);
 	double x1,y1,xmax1=1020.1;
-	x1=10;  y1=INLIMIT(x1,xmax1);printf("x=%lg y=%lg\n",x1,y1);
-	x1=-3;  y1=INLIMIT(x1,xmax1);printf("x=%lg y=%lg\n",x1,y1);
-	x1=1024;y1=INLIMIT(x1,xmax1);printf("x=%lg y=%lg\n",x1,y1);
+	x1=10;  y1=INLIMIT_F0(x1,xmax1);printf("x=%lg y=%lg\n",x1,y1);
+	x1=-3;  y1=INLIMIT_F0(x1,xmax1);printf("x=%lg y=%lg\n",x1,y1);
+	x1=1024;y1=INLIMIT_F0(x1,xmax1);printf("x=%lg y=%lg\n",x1,y1);
 
-	long i,j;
-	time_t start, stop;
+	int i=INLIMIT_F5(7,xmax);
+	int errors=0;
+	for (i=-1000;i<2000;i++)
+		if( (INLIMIT_F0(i,xmax)!=INLIMIT_F1(i,xmax))||(INLIMIT_F2(i,xmax)!=INLIMIT_F3(i,xmax))|| (INLIMIT_F2(i,xmax)!=INLIMIT_F4(i,xmax))|| (INLIMIT_F2(i,xmax)!=INLIMIT_F5(i,xmax)) )
+		{
+			cout << i<<": "<< INLIMIT_F0(i,xmax) << " " << INLIMIT_F1(i,xmax) << " " << INLIMIT_F2(i,xmax) << " " << INLIMIT_F3(i,xmax) << " " << INLIMIT_F4(i,xmax) << " " << INLIMIT_F5(i,xmax) << endl; 
+			errors++;
+		}
+	cout<<"Total errors="<<errors<<endl;
 
 	x=10;
+	const int size=100000000;
 	start = clock();
-	for (i=0;i<100;i++)
-		for(j=0;j<1000000L;j++)
-		{
-			x+=10;
-			x=INLIMIT(x,xmax);
-		}
-	stop=clock();
-	printf("DEFINE  INLIMIT Gigagaoperaciones/segundo = %lg\n", 0.1*CLOCKS_PER_SEC / (stop - start));
-	x=10;
-	start = clock();
-	for (i=0;i<100;i++)
-		for(j=0;j<1000000L;j++)
-		{
-			x+=10;
-			x=INLIMIT_F(x,xmax);
-		}
-	stop=clock();
-	printf("FUNCION INLIMIT Gigagaoperaciones/segundo = %lg\n", 0.1*CLOCKS_PER_SEC / (stop - start));
-	printf("======== fin prueba INLIMIT ========\n");
+	for (i=0;i<size;i++)
+		x=INLIMIT_F0(x,xmax);
+	cout<<"Value:"<<x<<" ";x=10;
+	timer("#INLIMIT_F0:",size);
+	for (i=0;i<size;i++)
+		x=INLIMIT_F1(x,xmax);
+	cout<<"Value:"<<x<<" ";x=10;
+	timer("#INLIMIT_F1:",size);
+	for (i=0;i<size;i++)
+		x=INLIMIT_F2(x,xmax);
+	cout<<"Value:"<<x<<" ";x=10;
+	timer(" INLIMIT_F2:",size);
+	for (i=0;i<size;i++)
+		x=INLIMIT_F3(x,xmax);
+	cout<<"Value:"<<x<<" ";x=10;
+	timer(" INLIMIT_F3:",size);
+	for (i=0;i<size;i++)
+		x=INLIMIT_F4(x,xmax);
+	cout<<"Value:"<<x<<" ";x=10;
+	timer(" INLIMIT_F4:",size);
+	for (i=0;i<size;i++)
+		x=INLIMIT_F5(x,xmax);
+	cout<<"Value:"<<x<<" ";x=10;
+	timer(" INLIMIT_F5:",size);
+
+	printf("======== fin prueba INLIMIT_Fx ========\n");
 	printf("====================================\n");
 }
 
@@ -218,7 +247,7 @@ void prue_UB(void)
 
 		const int XMAX=200,YMAX=64;
 		double image1[XMAX*YMAX];
-		long x,y;
+		int x,y;
 		for (y=0;y<YMAX;y++)
 		for (x=0;x<XMAX;x++)
 		{
@@ -258,11 +287,11 @@ void prue_inlimit2()
 
 	}
 
-	long errores = 0;
+	int errores = 0;
 	{
 		double x1, x2,xmin1, xmax1;
 		xmin1 = -10.51; xmax1 = 12.21;
-		for (long i = 0; i < 300; i++)
+		for (int i = 0; i < 300; i++)
 		{
 			x1 = -12.0 + 0.1*i;
 			x2 = INLIMIT2(x1, xmin1, xmax1);
@@ -279,9 +308,9 @@ void prue_inlimit2()
 		}
 	}
 	{
-		long x1, x2, xmin1, xmax1;
+		int x1, x2, xmin1, xmax1;
 		xmin1 = -105; xmax1 = 122;
-		for (long i = 0; i < 300; i++)
+		for (int i = 0; i < 300; i++)
 		{
 			x1 = -120 + i;
 			x2 = INLIMIT2(x1, xmin1, xmax1);

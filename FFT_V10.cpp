@@ -2,8 +2,15 @@
 V10: Mete power_spectrum2() que dá más precisión en frecuencia  
      Además mete ventana Hamming para más precisión en amplitud
 */
-#include "stdafx.h" 
+#include <iostream>
 #include <complex>
+#include <time.h>	//clock(), time_t
+#include <stdlib.h> //rand
+#include <string.h> //memcpy
+#pragma warning(disable:4996) //disable deprecateds
+using namespace std;
+typedef unsigned char uchar;
+
 //#define HAMMING //uses the Hamming window!!!!!!!!!
 
 typedef std::complex<double> Complex;
@@ -60,7 +67,9 @@ int main()
 		fprintf(strout,"\n%d\t %lg\t %lg", i, frecuencia[i],power[i]);
 	}
 
-	delete data1,power,frecuencia;
+	delete[] data1;
+	delete[] power;
+	delete[] frecuencia;
 	fclose(strout);
 	return 1;
 }

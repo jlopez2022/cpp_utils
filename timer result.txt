@@ -1,0 +1,84 @@
+
+
+=== Dual-Core AMD Opteron(tm) Processor 2220 1-2.8Ghz
+
+======================================================================
+
+Time for 100 Mega double divisions       time = 10.1054 = 10.3764 MOPs
+
+Time for 100 Mega float  divisions       time =   9.714 = 10.7945 MOPs
+
+Time for 100 Mega double multiplications time = 0.641829 = 163.373 MOPs
+
+Time for 100 Mega double sums            time = 0.657963 = 159.367 MOPs
+
+Time for 100 Mega double sqrt            time = 1.74466 =  60.102 MOPs
+
+Time for 100 Mega double sin             time = 2.43805 = 43.0087 MOPs
+
+Time for 100 Mega double log             time =  1.3058 = 80.3017 MOPs
+
+Time for 100 Mega int sums               time = 0.356066 = 294.489 MOPs
+
+Time for 100 Mega int <<                 time = 0.343526 = 305.239 MOPs
+
+Time for 100 Mega int divisions          time = 1.76286 = 59.4814 MOPs
+
+Time for 100 Mega int multiplications    time = 0.354854 = 295.495 MOPs
+
+Time for 100 Mega int sum+mult           time = 0.364358 = 287.787 MOPs
+
+======================================================================
+
+
+
+=== E5-1620 v3 3.5Ghz ================================================
+======================================================================
+Time for 100 Mega double divisions       time =   5.242 = 20.0034 MOPs
+Time for 100 Mega double divisions (20x) time =   0.399 = 262.801 MOPs
+Time for 100 Mega float  divisions       time =   4.676 = 22.4246 MOPs
+Time for 100 Mega double multiplications time =   0.153 = 685.344 MOPs
+Time for 100 Mega double sums            time =   0.101 = 1038.19 MOPs
+Time for 100 Mega double sqrt            time =   0.693 =  151.31 MOPs
+Time for 100 Mega double sin             time =   7.008 = 14.9626 MOPs
+Time for 100 Mega double log             time =   8.358 = 12.5458 MOPs
+Time for 100 Mega int sums               time =   0.026 = 4032.98 MOPs
+Time for 100 Mega int <<                 time =   0.056 = 1872.46 MOPs
+Time for 100 Mega int divisions          time =   0.743 = 141.127 MOPs
+Time for 100 Mega int multiplications    time =   0.109 = 961.996 MOPs
+Time for 100 Mega int sum+mult           time =    0.06 = 1747.63 MOPs
+======================================================================
+
+======================================================================
+Time for 100 Mega double divisions       time =   5.199 = 20.1688 MOPs
+Time for 100 Mega double divisions (20x) time =   0.706 = 148.524 MOPs
+Time for 100 Mega float  divisions       time =   4.621 = 22.6915 MOPs
+Time for 100 Mega double multiplications time =   0.154 = 680.894 MOPs
+Time for 100 Mega double sums            time =   0.103 = 1018.03 MOPs
+Time for 100 Mega double sqrt            time =   0.684 = 153.301 MOPs
+Time for 100 Mega double sin             time =   8.202 = 12.7844 MOPs
+Time for 100 Mega double log             time =  14.608 = 7.17809 MOPs
+Time for 100 Mega int sums               time =   0.032 =  3276.8 MOPs
+Time for 100 Mega int <<                 time =   0.056 = 1872.46 MOPs
+Time for 100 Mega int divisions          time =   0.807 = 129.935 MOPs
+Time for 100 Mega int multiplications    time =   0.097 = 1081.01 MOPs
+Time for 100 Mega int sum+mult           time =   0.036 = 2912.71 MOPs
+======================================================================
+
+=== I7-Q720    1.6GHz ================================================
+======================================================================
+Time for 100 Mega double divisions       time = 10.9031 =  9.6172 MOPs
+Time for 100 Mega double divisions (20x) time = 1.14586 = 91.5102 MOPs
+Time for 100 Mega float  divisions       time = 11.2313 = 9.33619 MOPs
+Time for 100 Mega double multiplications time = 0.595324 = 176.135 MOPs
+Time for 100 Mega double sums            time = 0.483892 = 216.696 MOPs
+Time for 100 Mega double sqrt            time =  1.4338 = 73.1324 MOPs
+Time for 100 Mega double sin             time = 2.27436 = 46.1043 MOPs
+Time for 100 Mega double log             time = 1.59232 =  65.852 MOPs
+Time for 100 Mega int sums               time = 0.324371 = 323.264 MOPs
+Time for 100 Mega int <<                 time = 0.337373 = 310.806 MOPs
+Time for 100 Mega int divisions          time = 1.07184 = 97.8293 MOPs
+Time for 100 Mega int multiplications    time = 0.390291 = 268.665 MOPs
+Time for 100 Mega int sum+mult           time = 0.363438 = 288.516 MOPs
+======================================================================
+======================================================================
